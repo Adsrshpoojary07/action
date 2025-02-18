@@ -16,7 +16,7 @@ jobs:
           node-version: '20'
 
       - name: Install Newman
-        run: npm install -g newman-reporter-cli newman-reporter-junit
+        run: npm install -g newman
 
       - name: Run Postman Collection
         run: |
