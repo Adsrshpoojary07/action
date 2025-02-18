@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-         newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters=cli,htmlextra
+         newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli,htmlextra
 
       - name: Debug working directory
         run: dir
