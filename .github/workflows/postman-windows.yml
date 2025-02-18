@@ -23,7 +23,7 @@ jobs:
           newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli,junit --reporter-junit-export results.xml
 
       - name: Upload Test Results
-        uses: actions/upload-artifact@v2  # Updated to v2
+        uses: actions/upload-artifact@v3
         with:
           name: postman-results
           path: results.xml
