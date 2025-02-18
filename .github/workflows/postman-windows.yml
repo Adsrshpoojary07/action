@@ -30,4 +30,4 @@ jobs:
         with:
           name: postman-results
           path: results.xml
-          path: results.xml
+         
