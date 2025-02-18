@@ -1,4 +1,4 @@
-name: Run Postman Collection on Windows
+name: Postman API Tests on Windows
 
 on: [push, pull_request]
 
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -23,7 +23,7 @@ jobs:
           newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli,junit --reporter-junit-export results.xml
 
       - name: Upload Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2  # Updated to v2
         with:
           name: postman-results
           path: results.xml
