@@ -20,14 +20,10 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli,junitxml --reporter-junitxml-export results.xml
+          newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" -r htmlextra --reporter-htmlextra-export "E:\Study_Material\POSTMAN\POSTMAN Collections\report.html"
 
       - name: Debug working directory
         run: dir
 
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: postman-results
-          path: results.xml
+      
          
