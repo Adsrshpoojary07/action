@@ -17,13 +17,20 @@ jobs:
 
       - name: Install Newman
         run: npm install -g newman
+             npm install -g newman-reporter-junit
+             npm install -g newman-reporter-htmlextra
+
 
       - name: Run Postman Collection
         run: |
-          newman run 8.API_Chaining.json -e postman_environment.json 
+          newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli,junit --reporter-junit-export results.xml
 
       - name: Debug working directory
         run: dir
 
-   
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-results
+          path: results.xml
          
