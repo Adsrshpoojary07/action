@@ -1,40 +1,25 @@
-name: Run Postman Collection
+name: Run Postman Tests
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  postman-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Newman & Reporters
+      - name: Install Newman & HTML Reporter
         run: |
-          npm install -g newman newman-reporter-htmlextra newman-reporter-junitfull
+          npm install -g newman newman-reporter-htmlextra
 
       - name: Run Postman Collection
         run: |
-          newman run 8.API_Chaining.json \
-            -e postman_environment.json \
-            --reporters cli,htmlextra,junitfull \
-            --reporter-htmlextra-export results.html \
-            --reporter-junitfull-export results.xml
+          newman run 8.API_Chaining.json -e postman_environment.json --reporters cli,htmlextra --reporter-htmlextra-export results.html
 
-      - name: Upload Newman Results (HTML)
+      - name: Upload HTML Report
         uses: actions/upload-artifact@v3
         with:
           name: postman-html-report
           path: results.html
-
-      - name: Upload Newman Results (JUnit)
-        uses: actions/upload-artifact@v3
-        with:
-          name: postman-junit-report
-          path: results.xml
