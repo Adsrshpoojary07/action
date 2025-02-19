@@ -1,10 +1,10 @@
-name: Postman API Tests on Windows
+name: Run Postman Collection
 
 on: [push, pull_request]
 
 jobs:
-  postman-test:
-    runs-on: windows-latest
+  test:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -13,23 +13,28 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 18
 
-      - name: Install Newman
-        run: npm install -g newman
-             npm install -g newman-reporter-junit
+      - name: Install Newman & Reporters
+        run: |
+          npm install -g newman newman-reporter-htmlextra newman-reporter-junitfull
 
-      
       - name: Run Postman Collection
         run: |
-          newman run 8.API_Chaining.json -e postman_environment.json --reporters cli,junit --reporter-junit-export results.xml
+          newman run 8.API_Chaining.json \
+            -e postman_environment.json \
+            --reporters cli,htmlextra,junitfull \
+            --reporter-htmlextra-export results.html \
+            --reporter-junitfull-export results.xml
 
-      - name: Debug working directory
-        run: dir
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
+      - name: Upload Newman Results (HTML)
+        uses: actions/upload-artifact@v3
         with:
-          name: postman-results
+          name: postman-html-report
+          path: results.html
+
+      - name: Upload Newman Results (JUnit)
+        uses: actions/upload-artifact@v3
+        with:
+          name: postman-junit-report
           path: results.xml
-         
