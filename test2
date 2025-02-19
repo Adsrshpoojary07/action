@@ -1,0 +1,26 @@
+name: Postman API Tests on Windows
+
+on: [push, pull_request]
+
+jobs:
+  postman-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: |
+          newman run "https://github.com/Adsrshpoojary07/action/blob/main/8.API_Chaining.json" -e "https://github.com/Adsrshpoojary07/action/blob/main/postman_environment.json" --reporters cli
+
+      - name: Debug working directory
+        run: dir
