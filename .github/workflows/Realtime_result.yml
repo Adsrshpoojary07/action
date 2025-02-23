@@ -13,7 +13,7 @@ jobs:
       - name: Install Newman & HTML Reporter
         run: |
           npm install -g newman newman-reporter-htmlextra
-
+ 
       - name: Run Postman Collection
         run: |
           newman run 8.API_Chaining.json -e postman_environment.json 
